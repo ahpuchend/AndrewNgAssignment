@@ -98,8 +98,8 @@ print("L1 = " + str(L2(yhat,y)))
 #     s = sigmoid(x)
 #     ds = s*(1-s)
 #     return ds
-# def image2vector(image):
-#     print(image.reshape(image.shape[0]*image.shape[1]*image.shape[2],1))
+# def image2vector(images):
+#     print(images.reshape(images.shape[0]*images.shape[1]*images.shape[2],1))
 #
 #
 # def normalizeRows(x):
@@ -126,7 +126,7 @@ print("L1 = " + str(L2(yhat,y)))
    # print(sigmoid(x))
    # print(sigmoid_derivarite(x))
 
-   # image = np.array([[[0.67826139, 0.29380381],
+   # images = np.array([[[0.67826139, 0.29380381],
    #                    [0.90714982, 0.52835647],
    #                    [0.4215251, 0.45017551]],
    #
@@ -138,4 +138,4 @@ print("L1 = " + str(L2(yhat,y)))
    #                    [0.10820313, 0.49978937],
    #                    [0.34144279, 0.94630077]]])
    #
-   # print("image2vector(image) = " + str(image2vector(image)))
+   # print("image2vector(images) = " + str(image2vector(images)))

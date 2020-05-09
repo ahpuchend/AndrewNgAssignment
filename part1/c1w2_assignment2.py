@@ -1,10 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import h5py
-import scipy
 from PIL import Image
-from scipy import ndimage
-
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 def load_dataset():
     train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
@@ -175,11 +173,11 @@ if __name__ == '__main__':
     test_set_x = test_set_x_flatten / 255.
     d = model(train_set_x,train_set_y,test_set_x,test_set_y,4000,0.005)
     np.set_printoptions(threshold=np.inf)
-
-    print(classes[0][0])
-    print(classes[0][1])
-    print(classes[0][2])
-
+    #
+    # print(classes[0][0])
+    # print(classes[0][1])
+    # print(classes[0][2])
+    #
     index = 1
     print(test_set_x.shape)
     plt.imshow(test_set_x[:, index].reshape((64, 64, 3)))
@@ -212,4 +210,17 @@ if __name__ == '__main__':
     frame = legend.get_frame()
     frame.set_facecolor('0.90')
     plt.show()
+
+    ## START CODE HERE ## (PUT YOUR IMAGE NAME)
+    path = "images/duckanddog.jpg"
+    im = Image.open(path)
+    size = 64, 64
+    im.thumbnail(size)
+    imgplot = plt.imshow(im)
+    plt.show()
+    image = np.array(im).reshape(64 * 64 * 3, -1)
+    print(image.shape)
+    my_predicted_image = predict(d["w"], d["b"], image)
+    print("y = " + str(np.squeeze(my_predicted_image)) + ", your algorithm predicts a \"" + classes[
+        int(np.squeeze(my_predicted_image)),].decode("utf-8") + "\" picture.")
 
