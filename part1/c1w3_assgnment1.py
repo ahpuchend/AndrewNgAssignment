@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-np.random.seed(1) # set a seed so that the results are consistent
+
 def load_planar_dataset():
     np.random.seed(1)
     m = 400  # number of examples
@@ -19,9 +19,8 @@ def load_planar_dataset():
     Y = Y.T
     return X, Y
 
-
-
 def plot_decision_boundary(model, X, y):
+    #
     # Set min and max values and give it some padding
     x_min, x_max = X[0, :].min() - 1, X[0, :].max() + 1
     y_min, y_max = X[1, :].min() - 1, X[1, :].max() + 1
@@ -37,8 +36,12 @@ def plot_decision_boundary(model, X, y):
     plt.xlabel('x1')
     plt.scatter(X[0, :], X[1, :], c=y[0, :], cmap="summer")
 
+
 # load dataset
 X, Y = load_planar_dataset()
+
+plt.scatter(X[0, :], X[1, :], c=Y[0, :], cmap="summer")
+plt.show()
 
 def layer_sizes(X, Y):
     """
@@ -56,7 +59,6 @@ def layer_sizes(X, Y):
     n_y = Y.shape[0]  #size of output layer   1
     ### END CODE HERE ###
     return (n_x, n_h, n_y)
-
 
 # GRADED FUNCTION: initialize_parameters
 def initialize_parameters(n_x, n_h, n_y):
@@ -228,7 +230,6 @@ def update_parameters(parameters, grads, learning_rate=0.02):
     W2 -= learning_rate * dW2
     b2 -= learning_rate * db2
     ### END CODE HERE ###
-
     parameters = {"W1": W1,
                   "b1": b1,
                   "W2": W2,
@@ -278,22 +279,6 @@ def nn_model(X, Y, n_h, num_iterations=10000, print_cost=False):
             print("Cost after iteration %i: %f" % (i, cost))
     return parameters
 
-
-def predict_test_case():
-    np.random.seed(1)
-    X_assess = np.random.randn(2, 3)
-    parameters = {'W1': np.array([[-0.00615039, 0.0169021],
-                                  [-0.02311792, 0.03137121],
-                                  [-0.0169217, -0.01752545],
-                                  [0.00935436, -0.05018221]]),
-                  'W2': np.array([[-0.0104319, -0.04019007, 0.01607211, 0.04440255]]),
-                  'b1': np.array([[-8.97523455e-07],
-                                  [8.15562092e-06],
-                                  [6.04810633e-07],
-                                  [-2.54560700e-06]]),
-                  'b2': np.array([[9.14954378e-05]])}
-    return parameters, X_assess
-
 def predict(parameters, X):
     """
     Using the learned parameters, predicts a class for each example in X
@@ -301,11 +286,9 @@ def predict(parameters, X):
     Arguments:
     parameters -- python dictionary containing your parameters
     X -- input data of size (n_x, m)
-
     Returns
     predictions -- vector of predictions of our model (red: 0 / blue: 1)
     """
-
     # Computes probabilities using forward propagation, and classifies to 0/1 using 0.5 as the threshold.
     ### START CODE HERE ### (≈ 2 lines of code)
     A2, cache = forward_propagation(X, parameters)
@@ -314,54 +297,9 @@ def predict(parameters, X):
     ### END CODE HERE ###
     return predictions
 
-
-
 # Build a model with a n_h-dimensional hidden layer
 parameters = nn_model(X, Y, n_h = 4, num_iterations = 10000, print_cost=True)
-
 # Plot the decision boundary
 plot_decision_boundary(lambda x: predict(parameters, x.T), X, Y)
 plt.title("Decision Boundary for hidden layer size " + str(4))
 plt.show()
-# parameters, X_assess = predict_test_case()
-#
-# predictions = predict(parameters, X_assess)
-# print("predictions mean = " + str(np.mean(predictions)))
-
-# parameters = nn_model(X , Y, 4, num_iterations=10000, print_cost=False)
-# print("W1 = " + str(parameters["W1"]))
-# print("b1 = " + str(parameters["b1"]))
-# print("W2 = " + str(parameters["W2"]))
-# print("b2 = " + str(parameters["b2"]))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def load_extra_datasets():
-#     N = 200
-#     noisy_circles = sklearn.datasets.make_circles(n_samples=N, factor=.5, noise=.3)
-#     noisy_moons = sklearn.datasets.make_moons(n_samples=N, noise=.2)
-#     blobs = sklearn.datasets.make_blobs(n_samples=N, random_state=5, n_features=2, centers=6)
-#     gaussian_quantiles = sklearn.datasets.make_gaussian_quantiles(mean=None, cov=0.5, n_samples=N, n_features=2,
-#                                                                   n_classes=2, shuffle=True, random_state=None)
-#     no_structure = np.random.rand(N, 2), np.random.rand(N, 2)
-#
-#     return noisy_circles, noisy_moons, blobs, gaussian_quantiles, no_structure
-
-
-
-
-
-
-
